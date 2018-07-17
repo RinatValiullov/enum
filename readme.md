@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/githubjeka/enum.svg?branch=master)](https://travis-ci.org/githubjeka/enum)
+[![Build Status](https://travis-ci.com/githubjeka/enum.svg?branch=master)](https://travis-ci.com/githubjeka/enum)
 
 ## Usage ENUM
 Simple and base functional to start using Enum in your projects.
