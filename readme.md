@@ -50,7 +50,7 @@ const LARGE = 3;        // not recommend
  
 because it is easy to mix up the strings and the underlying number values if you quote the ENUM values incorrectly.
 
-**By default expected than all Enum values(constants) are Strings.** 
+**By default expected that all Enum(constants) are Strings.** 
 
 If you want to use integers you can change `$stringMode` property to `FALSE` in your Enum class. After that should 
 use only integers value for constants:
