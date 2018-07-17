@@ -13,5 +13,4 @@ install:
 - wget -O phpunit https://phar.phpunit.de/phpunit-7.phar
 - chmod +x phpunit
 
-script:
-phpunit -c phpunit.xml tests/
+script: phpunit -c phpunit.xml tests/
