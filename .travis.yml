@@ -10,7 +10,7 @@ before_script:
 
 install:
   - composer install --no-interaction
-  - wget -O phpunit https://phar.phpunit.de/phpunit-7.phar
+  - wget -O phpunit https://phar.phpunit.de/phpunit-7.0.0.phar
   - chmod +x phpunit
 
 script: phpunit -c phpunit.xml tests/
