@@ -30,7 +30,7 @@ class EnumTest extends \PHPUnit\Framework\TestCase
             $this->assertTrue(10 !== $enum::ACTIVE);
             $this->assertTrue(20 !== $enum::BANNED);
         } else {
-            $this->assertEquals([10,20], $enum::getKeys());
+            $this->assertEquals([10, 20], $enum::getKeys());
             $this->assertTrue('10' !== $enum::ACTIVE);
             $this->assertTrue('20' !== $enum::BANNED);
             $this->assertTrue(10 === $enum::ACTIVE);
@@ -70,7 +70,6 @@ class EnumTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('Active', $enum::getLabel($enum::ACTIVE));
         $this->assertEquals('Banned', $enum::getLabel($enum::BANNED));
-
     }
 
     /**
@@ -88,7 +87,6 @@ class EnumTest extends \PHPUnit\Framework\TestCase
             $enum::getLabel('10');
             $enum::getLabel('20');
         }
-
     }
 
     /**

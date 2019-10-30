@@ -2,7 +2,9 @@
   "name": "githubjeka/enum",
   "type": "library",
   "description": "Simple and base functional to start using Enum in your projects.",
-  "keywords": ["enum"],
+  "keywords": [
+    "enum"
+  ],
   "license": "MIT",
   "authors": [
     {

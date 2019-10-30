@@ -42,7 +42,6 @@ abstract class BaseEnum implements IEnum
             } else {
                 $keys[] = (integer)$key;
             }
-
         }
         return $keys;
     }
