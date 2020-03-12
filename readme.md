@@ -5,7 +5,7 @@ Simple and base functional to start using Enum in your projects.
 Just initialize enum value by creating Enum class.
 
 ```php
-final class SizeEnum extends \githubjeka\enum\BaseEnum
+final class SizeEnum extends \githubjeka\enum\BaseObjectEnum
 {
     const XS = 'xs';
     const SMALL = 's';
@@ -28,14 +28,57 @@ final class SizeEnum extends \githubjeka\enum\BaseEnum
 }
 ```
 
-After that you can use it as:
+After that you can use API enums as:
 
-- `SizeEnum::getList()` to return ready list for use in HTML list elements like checkboxes, select or others;
-- `SizeEnum::getKeys()` to return values of ENUM for use it in validation rules like `Assertion::inArray('xs', SizeEnum::getKeys());`;
-- `SizeEnum::LARGE` to compare with the saved value `<?= $size === SizeEnum::LARGE ? 'Large badge' : '' ?>`;
-- `SizeEnum::getLabel(SizeEnum::LARGE)` to use a human description of value. `InvalidArgumentException` will be returned
-if value is wrong.
-- `SizeEnum::isValid('xl')` to avoid exceptions.
+#### `SizeEnum::getList()`
+Return ready list for use in HTML list elements like checkboxes, select or others
+
+#### `SizeEnum::getKeys()` 
+
+Return values of ENUM for use it in validation rules like `Assertion::inArray('xs', SizeEnum::getKeys());`;
+
+#### `SizeEnum::XXL` 
+Return string key. Use to compare with the saved values `(bool)('xxl' === SizeEnum::XXL)?>`;
+
+#### `SizeEnum::getLabel(SizeEnum::LARGE)`
+Return human description of value. `InvalidArgumentException` will be returned if value is wrong.
+ 
+#### `SizeEnum::isValid('xl')`
+Use to avoid `InvalidArgumentException` exception.
+
+#### `new SizeEnum('xxl')`
+Return Object enum.
+
+```php
+class Shirt
+{
+    private $size;
+
+    public function __construct(SizeEnum $size)
+    {
+        $this->size = $size;
+    }
+
+    public function size(): SizeEnum
+    {
+        return $this->size;
+    }
+}
+
+$sizeFromDb = 'xxl';
+$size = new SizeEnum($sizeFromDb);
+$shirt = new Shirt($size);
+
+$shirt->size()->asKey(); // (string) xxl 
+
+$shirt->size()->asLabel(); // (string) Extra extra large(xxl)
+
+$shirt->size()->equals(new SizeEnum(SizeEnum::XS)); // (bool) false
+
+echo $shirt->size(); // (string) xxl
+```
+
+ 
 
 ## Extra
 

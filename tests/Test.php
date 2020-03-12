@@ -7,7 +7,9 @@
 namespace githubjeka\enum\tests;
 
 use githubjeka\enum\BaseEnum;
+use githubjeka\enum\BaseObjectEnum;
 use githubjeka\enum\IEnum;
+use githubjeka\enum\IObjectEnum;
 
 class EnumTest extends \PHPUnit\Framework\TestCase
 {
@@ -73,13 +75,13 @@ class EnumTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      * @dataProvider classesProvider
      * @param IEnum $enum
      * @param $modeString
      */
     public function testWrongValueForLabel(IEnum $enum, $modeString)
     {
+        $this->expectException(\InvalidArgumentException::class);
         if ($modeString) {
             $enum::getLabel(10);
             $enum::getLabel(20);
@@ -90,21 +92,31 @@ class EnumTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \LogicException
+     * @dataProvider objectsProvider
+     * @param BaseObjectEnum $enum
+     * @param $key
      */
-    public function testNewException()
+    public function testEnumObjects($enum, $key)
     {
-        $enum = new class extends BaseEnum
-        {
-            protected static $exceptionClass = \LogicException::class;
+        $this->assertInstanceOf(Status::class, $enum);
+        $this->assertInstanceOf(BaseObjectEnum::class, $enum);
+        $this->assertInstanceOf(BaseEnum::class, $enum);
+        $this->assertInstanceOf(IEnum::class, $enum);
+        $this->assertSame($key, $enum->asKey());
+        $this->assertSame($key, (string)$enum);
+        $this->assertSame(Status::getLabel($key), $enum->asLabel());
+        $this->assertTrue($enum->equals($enum));
+    }
 
-            public static function getList(): array
-            {
-                return [];
-            }
-        };
-
-        $enum::getLabel(10);
+    /**
+     * @return array
+     */
+    public function objectsProvider()
+    {
+        return [
+            [new Status(Status::DEFAULT), Status::DEFAULT],
+            [new Status(Status::ACTIVE), Status::ACTIVE],
+        ];
     }
 
     /**
@@ -114,8 +126,7 @@ class EnumTest extends \PHPUnit\Framework\TestCase
     {
         return [
             [
-                new class extends BaseEnum
-                {
+                new class() extends BaseEnum {
                     const ACTIVE = '10';
                     const BANNED = '20';
 
@@ -130,8 +141,7 @@ class EnumTest extends \PHPUnit\Framework\TestCase
                 true,
             ],
             [
-                new class extends BaseEnum
-                {
+                new class extends BaseEnum {
                     protected static $stringMode = false;
                     const ACTIVE = 10;
                     const BANNED = 20;
@@ -146,6 +156,23 @@ class EnumTest extends \PHPUnit\Framework\TestCase
                 },
                 false,
             ],
+        ];
+    }
+}
+
+
+final class Status extends BaseObjectEnum implements IObjectEnum
+{
+    const ACTIVE = 'a';
+    const BANNED = 'b';
+    const DEFAULT = 'd';
+
+    public static function getList(): array
+    {
+        return [
+            self::ACTIVE => 'active',
+            self::DEFAULT => 'default',
+            self::BANNED => 'banned',
         ];
     }
 }

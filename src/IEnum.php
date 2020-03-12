@@ -1,8 +1,8 @@
 <?php
 /**
  * Author: Evgeniy Tkachenko <et.coder@gmail.com>
- * 2018
  */
+
 namespace githubjeka\enum;
 
 interface IEnum
